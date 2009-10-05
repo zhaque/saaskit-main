@@ -1,4 +1,4 @@
-from common_settings import *
+from saaskit.settings import *
 
 import os.path
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -8,6 +8,7 @@ SITE_ID = 1
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+APP_MEDIA_ROOT = MEDIA_ROOT
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -33,3 +34,8 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_ROOT, 'templates'),
 ) + TEMPLATE_DIRS
+
+try:
+    from settings_local import *
+except ImportError:
+    pass
