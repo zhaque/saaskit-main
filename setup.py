@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-setup(name="saaskit-mainsite",
+setup(name="saaskit-main-site",
            version="0.1",
            description="Django project for main site of saaskit",
            author="CrowdSense",
