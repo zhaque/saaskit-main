@@ -15,6 +15,8 @@ APP_MEDIA_ROOT = MEDIA_ROOT
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = '/media/'
 
+SERVE_MEDIA = True
+
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
@@ -29,13 +31,6 @@ INSTALLED_APPS += (
     'django.contrib.admin',
     'django.contrib.admindocs',
     )
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_ROOT, 'templates'),
-) + TEMPLATE_DIRS
 
 try:
     from settings_local import *
