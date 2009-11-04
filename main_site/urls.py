@@ -22,8 +22,6 @@ urlpatterns = patterns('',
     (r'^admin/rosetta/', include('rosetta.urls')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
-    # Currently disabled
-    # (r'^pages/', include('pages.urls')),
 )
 
 # serve static files in debug mode
