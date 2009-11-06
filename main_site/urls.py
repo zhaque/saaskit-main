@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list
+from django.contrib.auth.decorators import login_required
 
 from django.contrib import admin
 admin.autodiscover()
@@ -28,7 +29,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     
     url(r'^muaccounts/$', 
-        wrapped_queryset(object_list, lambda request, queryset: queryset.filter(owner=request.user)),
+        login_required(wrapped_queryset(object_list, lambda request, queryset: queryset.filter(owner=request.user))),
         {'template_object_name': 'mua', 'queryset': MUAccount.objects.all()}, 
         name='muaccounts_listing'),
     url(r'^content/add/(?P<app_label>muaccounts)/(?P<model_name>muaccount)/$', 
@@ -38,6 +39,18 @@ urlpatterns = patterns('',
          'form_class': MUAccountForm,
          },
         name='frontendadmin_add'
+    ),
+    url(r'^content/change/(?P<app_label>muaccounts)/(?P<model_name>muaccount)/(?P<instance_id>[\d]+)/$', 
+        'muaccounts.views.change_muaccount',
+        {'form_exclude': ('owner', 'about', 'logo', 'analytics_code', 'webmaster_tools_code', 
+                          'adsense_code', 'yahoo_app_id', 'yahoo_secret', 'members'),
+         'form_class': MUAccountForm,
+         },
+        name='frontendadmin_change'
+    ),
+    url(r'^content/delete/(?P<app_label>muaccounts)/(?P<model_name>muaccount)/(?P<instance_id>[\d]+)/$',
+        'muaccounts.views.delete_muaccount',
+        name='frontendadmin_delete'
     ),
     
 )
