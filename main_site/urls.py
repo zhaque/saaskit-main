@@ -6,16 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 admin.autodiscover()
 
-from saaskit.urls import handler404, urlpatterns as saaskit_patterns
+from saaskit.urls import handler404, urlpatterns as saaskit_patterns, wrapped_queryset
 
 from muaccounts.models import MUAccount
 from muaccounts.forms import MUAccountForm
-
-def wrapped_queryset(func, queryset_edit=lambda request, queryset: queryset):
-    def wrapped(request, queryset, *args, **kwargs):
-        return func(request, queryset=queryset_edit(request, queryset), *args, **kwargs)
-    
-    return wrapped
 
 urlpatterns = patterns('',
     (r'^$', 'django.views.generic.simple.direct_to_template', dict(template='index.html')),
