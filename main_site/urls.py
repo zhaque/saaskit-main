@@ -17,9 +17,10 @@ urlpatterns = patterns('',
     (r'^support/$', 'django.views.generic.simple.direct_to_template', dict(template='support.html')),
     (r'^privacy/$', 'django.views.generic.simple.direct_to_template', dict(template='tc.html')),
     (r'^contact/', include('contact_form.urls')),
-    (r'^admin/templatesadmin/', include('templatesadmin.urls')),
+    
     (r'^admin/rosetta/', include('rosetta.urls')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    (r'^admin/templatesadmin/', include('templatesadmin.urls')),
     (r'^admin/', include(admin.site.urls)),
     
     url(r'^muaccounts/$', 
