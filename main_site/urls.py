@@ -18,6 +18,9 @@ urlpatterns = patterns('',
     (r'^privacy/$', 'django.views.generic.simple.direct_to_template', dict(template='tc.html')),
     (r'^contact/', include('contact_form.urls')),
     
+    (r'^accounts/', include('django_authopenid.urls')),
+    (r'^subscription/', include('subscription.urls')),
+    
     (r'^admin/rosetta/', include('rosetta.urls')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/templatesadmin/', include('templatesadmin.urls')),
