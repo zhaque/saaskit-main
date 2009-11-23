@@ -20,6 +20,8 @@ urlpatterns = patterns('',
     
     (r'^accounts/', include('django_authopenid.urls')),
     (r'^subscription/', include('subscription.urls')),
+    (r'^profiles/', include('saaskit_profile.urls')),
+    (r'^notices/', include('notification.urls')),
     
     (r'^admin/rosetta/', include('rosetta.urls')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
