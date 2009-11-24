@@ -21,6 +21,11 @@ urlpatterns = patterns('',
     (r'^accounts/', include('django_authopenid.urls')),
     (r'^subscription/', include('subscription.urls')),
     (r'^profiles/', include('saaskit_profile.urls')),
+    
+    
+    url(r'^notices/$', 'notification.views.notices', {
+        'template': 'account/dashboard.html',
+    }, name='account_dashboard'),
     (r'^notices/', include('notification.urls')),
     
     (r'^admin/rosetta/', include('rosetta.urls')),
