@@ -22,7 +22,6 @@ urlpatterns = patterns('',
     (r'^subscription/', include('subscription.urls')),
     (r'^profiles/', include('saaskit_profile.urls')),
     
-    
     url(r'^notices/$', 'notification.views.notices', {
         'template': 'account/dashboard.html',
     }, name='account_dashboard'),
