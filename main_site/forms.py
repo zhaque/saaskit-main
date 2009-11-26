@@ -9,7 +9,6 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 
 from registration.models import RegistrationProfile
-from django_authopenid.signals import oid_register
 from django_authopenid.forms import attrs_dict
 
 # favour django-mailer but fall back to django.core.mail
@@ -19,6 +18,9 @@ else:
     from django.core.mail import send_mail
 
 class RegistrationForm(forms.Form):
+    username = forms.RegexField(regex=r'^\w+$', max_length=30,
+                                widget=forms.TextInput(attrs=attrs_dict),
+                                label=_(u'username'))
     email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict,
                                                                maxlength=75)),
                              label=_(u'email address'))
@@ -26,7 +28,19 @@ class RegistrationForm(forms.Form):
     last_name = forms.CharField(_('last name'), required=False)
     
     redirect_to = forms.CharField(widget=forms.HiddenInput, required=False)
+    
+    def clean_username(self):
+        """
+        Validate that the username is alphanumeric and is not already
+        in use.
 
+        """
+        try:
+            user = User.objects.get(username__iexact=self.cleaned_data['username'])
+        except User.DoesNotExist:
+            return self.cleaned_data['username']
+        raise forms.ValidationError(_(u'This username is already taken. Please choose another.'))
+    
     def clean_email(self):
         """
         Validate that the supplied email address is unique for the
@@ -51,7 +65,7 @@ class RegistrationForm(forms.Form):
 
         """
         password = self._gerenate_password()
-        new_user = RegistrationProfile.objects.create_inactive_user(username=self.cleaned_data['email'],
+        new_user = RegistrationProfile.objects.create_inactive_user(username=self.cleaned_data['username'],
                                                                     password=password,
                                                                     email=self.cleaned_data['email'],
                                                                     redirect_to=self.cleaned_data.get('redirect_to'))
@@ -68,44 +82,10 @@ class RegistrationForm(forms.Form):
         subject = ''.join(subject.splitlines())
 
         message = render_to_string('registration/credentials_email.txt',
-                                   { 'email': new_user.email,
+                                   { 'username': self.cleaned_data['username'],
                                      'password': password,
                                      'site': current_site })
 
         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [new_user.email])
         
         return new_user
-
-
-def register_account_email(form, _openid):
-    """ create an account """
-    user = User.objects.create_user(form.cleaned_data['email'], 
-                            form.cleaned_data['email'])
-    user.backend = "django.contrib.auth.backends.ModelBackend"
-    oid_register.send(sender=user, openid=_openid)
-    return user
-
-
-class OpenidRegisterForm(forms.Form):
-    """ openid signin form """
-    email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict, 
-        maxlength=200)), label=u'Email address')
-        
-    def __init__(self, *args, **kwargs):
-        super(OpenidRegisterForm, self).__init__(*args, **kwargs)
-        self.user = None
-    
-    def clean_email(self):
-        """For security reason one unique email in database"""
-        if 'email' in self.cleaned_data:
-            try:
-                user = User.objects.get(email = self.cleaned_data['email'])
-            except User.DoesNotExist:
-                return self.cleaned_data['email']
-            except User.MultipleObjectsReturned:
-                raise forms.ValidationError(u'There is already more than one \
-                    account registered with that e-mail address. Please try \
-                    another.')
-            raise forms.ValidationError(_("This email is already \
-                registered in our database. Please choose another."))
-                
