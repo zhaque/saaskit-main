@@ -3,6 +3,8 @@ from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list
 from django.contrib.auth.decorators import login_required
 
+from main_site.forms import RegistrationForm, register_account_email, OpenidRegisterForm
+
 from django.contrib import admin
 admin.autodiscover()
 
@@ -18,6 +20,14 @@ urlpatterns = patterns('',
     (r'^privacy/$', 'django.views.generic.simple.direct_to_template', dict(template='tc.html')),
     (r'^contact/', include('contact_form.urls')),
     
+    
+    url(r'^accounts/signup/$', 'registration.views.register',
+        {'form_class': RegistrationForm}, 
+        name='registration_register'),
+    url(r'^accounts/register/$', 'django_authopenid.views.register',
+        {'register_form': OpenidRegisterForm, 
+         'register_account': register_account_email}, 
+        name='user_register'),
     (r'^accounts/', include('django_authopenid.urls')),
     (r'^subscription/', include('subscription.urls')),
     (r'^profiles/', include('saaskit_profile.urls')),
