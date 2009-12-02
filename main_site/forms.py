@@ -24,8 +24,8 @@ class RegistrationForm(forms.Form):
     email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict,
                                                                maxlength=75)),
                              label=_(u'email address'))
-    first_name = forms.CharField(_('first name'), required=False)
-    last_name = forms.CharField(_('last name'), required=False)
+    first_name = forms.CharField(_(u'first name'), required=False)
+    last_name = forms.CharField(_(u'last name'), required=False)
     
     redirect_to = forms.CharField(widget=forms.HiddenInput, required=False)
     
