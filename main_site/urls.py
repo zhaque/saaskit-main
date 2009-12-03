@@ -62,6 +62,7 @@ urlpatterns = patterns('',
         name='frontendadmin_delete'
     ),
     
+    (r'^i18n/', include('django.conf.urls.i18n')),
 )
 
 #apply saaskit-core url mapping
