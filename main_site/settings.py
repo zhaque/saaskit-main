@@ -7,6 +7,10 @@ SECRET_KEY = 'rndx7w-jze@1$fu!&7x*b*mm&c!)!$5-@gvw^5^u_ixohmiipi'
 
 ROOT_URLCONF = 'main_site.urls'
 
+MIDDLEWARE_CLASSES += (
+        'django.middleware.locale.LocaleMiddleware',
+)
+
 INSTALLED_APPS += (
     'django.contrib.admin',
     'django.contrib.admindocs',
