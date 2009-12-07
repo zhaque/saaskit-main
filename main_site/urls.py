@@ -63,6 +63,7 @@ urlpatterns = patterns('',
     ),
     
     (r'^i18n/', include('django.conf.urls.i18n')),
+    (r'^prepaid/', include('prepaid.urls')),
 )
 
 #apply saaskit-core url mapping
