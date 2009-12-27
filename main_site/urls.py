@@ -15,7 +15,6 @@ from muaccounts.forms import MUAccountForm
 urlpatterns = patterns('',
     (r'^$', 'django.views.generic.simple.direct_to_template', dict(template='index.html')),
     (r'^about/$', 'django.views.generic.simple.direct_to_template', dict(template='about.html')),
-    (r'^support/$', 'django.views.generic.simple.direct_to_template', dict(template='support.html')),
     (r'^privacy/$', 'django.views.generic.simple.direct_to_template', dict(template='tc.html')),
     (r'^contact/', include('contact_form.urls')),
     
