@@ -13,7 +13,10 @@ from muaccounts.models import MUAccount
 from muaccounts.forms import MUAccountForm
 
 urlpatterns = patterns('',
-    (r'^$', 'django.views.generic.simple.direct_to_template', dict(template='index.html')),
+   url(r'^$', 'django.views.generic.simple.direct_to_template', {
+   'template': 'index.html',
+    }, name='main_index'),
+
     (r'^about/$', 'django.views.generic.simple.direct_to_template', dict(template='about.html')),
     (r'^privacy/$', 'django.views.generic.simple.direct_to_template', dict(template='tc.html')),
     (r'^contact/', include('contact_form.urls')),
