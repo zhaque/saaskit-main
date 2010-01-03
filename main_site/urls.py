@@ -18,7 +18,8 @@ urlpatterns = patterns('',
     }, name='main_index'),
 
     (r'^about/$', 'django.views.generic.simple.direct_to_template', dict(template='about.html')),
-    (r'^privacy/$', 'django.views.generic.simple.direct_to_template', dict(template='tc.html')),
+    (r'^privacy/$', 'django.views.generic.simple.direct_to_template', dict(template='privacy.html')),
+    (r'^terms/$', 'django.views.generic.simple.direct_to_template', dict(template='tc.html')),
     (r'^contact/', include('contact_form.urls')),
     
     
