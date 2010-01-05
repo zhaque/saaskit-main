@@ -14,12 +14,13 @@ from muaccounts.forms import MUAccountForm
 
 urlpatterns = patterns('',
    url(r'^$', 'django.views.generic.simple.direct_to_template', {
-   'template': 'index.html',
+   'template': 'pages/index.html',
     }, name='main_index'),
 
-    (r'^about/$', 'django.views.generic.simple.direct_to_template', dict(template='about.html')),
-    (r'^privacy/$', 'django.views.generic.simple.direct_to_template', dict(template='privacy.html')),
-    (r'^terms/$', 'django.views.generic.simple.direct_to_template', dict(template='tc.html')),
+    (r'^pages/about-saas-kit-services/$', 'django.views.generic.simple.direct_to_template', dict(template='pages/about.html')),
+    (r'^pages/take-the-saas-kit-service-tour/$', 'django.views.generic.simple.direct_to_template', dict(template='pages/tour.html')),
+    (r'^pages/saas-kit-service-copyright-privacy/$', 'django.views.generic.simple.direct_to_template', dict(template='pages/privacy.html')),
+    (r'^pages/saas-kit-service-terms-condition/$', 'django.views.generic.simple.direct_to_template', dict(template='pages/tc.html')),
     (r'^contact/', include('contact_form.urls')),
     
     
