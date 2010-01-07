@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     (r'^pages/take-the-saas-kit-service-tour/$', 'django.views.generic.simple.direct_to_template', dict(template='pages/tour.html')),
     (r'^pages/saas-kit-service-copyright-privacy/$', 'django.views.generic.simple.direct_to_template', dict(template='pages/privacy.html')),
     (r'^pages/saas-kit-service-terms-condition/$', 'django.views.generic.simple.direct_to_template', dict(template='pages/tc.html')),
-    (r'^contact/', include('contact_form.urls')),
+    (r'^contact/', include('contact.urls')),
     
     
     url(r'^accounts/signup/$', 'registration.views.register',
