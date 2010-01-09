@@ -5,6 +5,8 @@ from settings import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 DEBUG_PROPAGATE_EXCEPTIONS = False
+COMPRESS = True
+COMPRESS_VERSION = True
 
 EMAIL_DEBUG = DEBUG
 
