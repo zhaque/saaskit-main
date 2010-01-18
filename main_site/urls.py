@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list
 from django.contrib.auth.decorators import login_required
 
-from main_site.forms import RegistrationForm
+#from main_site.forms import RegistrationForm
 
 from django.contrib import admin
 admin.autodiscover()
@@ -24,11 +24,6 @@ urlpatterns = patterns('',
     (r'^contact/', include('contact.urls')),
     
     
-    url(r'^accounts/signup/$', 'registration.views.register',
-        {'form_class': RegistrationForm}, 
-        name='registration_register'),
-    url(r'^accounts/signin/$', 'main_site.views.generic_signin',
-        name='user_signin'),
     (r'^accounts/', include('django_authopenid.urls')),
     (r'^subscription/', include('subscription.urls')),
     (r'^profiles/', include('saaskit_profile.urls')),
