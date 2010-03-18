@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     (r'^contact/', include('contact.urls')),
     
     
-    (r'^accounts/', include('django_authopenid.urls')),
+    (r'^accounts/', include('registration.urls')),
     (r'^subscription/', include('subscription.urls')),
     (r'^profiles/', include('saaskit_profile.urls')),
     
