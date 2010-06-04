@@ -11,6 +11,7 @@ from saaskit.urls import handler404, urlpatterns as saaskit_patterns, wrapped_qu
 
 from muaccounts.models import MUAccount
 from muaccounts.forms import MUAccountForm
+from django.contrib.auth.forms import PasswordResetForm
 
 urlpatterns = patterns('',
    url(r'^$', 'django.views.generic.simple.direct_to_template', {
@@ -23,7 +24,7 @@ urlpatterns = patterns('',
     (r'^pages/saas-kit-service-terms-condition/$', 'django.views.generic.simple.direct_to_template', dict(template='pages/tc.html')),
     (r'^contact/', include('contact.urls')),
     
-    
+    url(r'^accounts/login/$', 'main_site.views.login', {'template_name': 'registration/login.html', 'extra_context': {'password_reset_form': PasswordResetForm(), }}, name='auth_login'),
     (r'^accounts/', include('registration.urls')),
     (r'^subscription/', include('subscription.urls')),
     (r'^profiles/', include('saaskit_profile.urls')),
